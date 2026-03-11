@@ -1,0 +1,156 @@
+create table empleado (
+    numemp int primary key,
+    nombreemp varchar2(12),
+    empleo varchar2(12),
+    jefe int,
+    fechaentr date,
+    sueldo int,
+    complemento int,
+    numdep int
+    );
+    
+    drop table empleado;
+    
+create table departamento (
+    numdep int primary key,
+    nombredep varchar2(15),
+    ciudad varchar2(20));
+    
+    
+    commit;
+INSERT INTO DEPARTAMENTO (NUMDEP, NOMBREDEP, CIUDAD) VALUES (10, 'CONTABILIDAD', 'NEW YORK');
+INSERT INTO DEPARTAMENTO (NUMDEP, NOMBREDEP, CIUDAD) VALUES (20, 'INVESTIGACION', 'DALLAS');
+INSERT INTO DEPARTAMENTO (NUMDEP, NOMBREDEP, CIUDAD) VALUES (30, 'VENTAS', 'CHICAGO');
+INSERT INTO DEPARTAMENTO (NUMDEP, NOMBREDEP, CIUDAD) VALUES (40, 'OPERACIONES', 'BOSTON');
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7369, 'SMITH', 'ORDENANZA', 7902, TO_DATE('17-12-1980', 'DD-MM-YYYY'), 800, NULL, 20);
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7499, 'ALLEN', 'VENDEDOR', 7698, TO_DATE('20-02-1981', 'DD-MM-YYYY'), 1600, 300, 30);
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7521, 'WARD', 'VENDEDOR', 7698, TO_DATE('22-02-1981', 'DD-MM-YYYY'), 1250, 500, 30);
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7566, 'JONES', 'DIRECTIVO', 7839, TO_DATE('02-04-1981', 'DD-MM-YYYY'), 2975, NULL, 20);
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7654, 'MARTIN', 'VENDEDOR', 7698, TO_DATE('28-09-1981', 'DD-MM-YYYY'), 1250, 1400, 30);
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7698, 'BLAKE', 'DIRECTIVO', 7839, TO_DATE('01-05-1981', 'DD-MM-YYYY'), 2850, NULL, 30);
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7782, 'CLARK', 'DIRECTIVO', 7839, TO_DATE('09-06-1981', 'DD-MM-YYYY'), 2450, NULL, 10);
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7788, 'SCOTT', 'ANALISTA', 7566, TO_DATE('09-12-1982', 'DD-MM-YYYY'), 3000, NULL, 20);
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7839, 'KING', 'DIRECTOR', NULL, TO_DATE('17-11-1981', 'DD-MM-YYYY'), 5000, NULL, 10);
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7844, 'TURNER', 'VENDEDOR', 7698, TO_DATE('08-09-1981', 'DD-MM-YYYY'), 1500, 0, 30);
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7876, 'ADAMS', 'ORDENANZA', 7788, TO_DATE('12-01-1983', 'DD-MM-YYYY'), 1100, NULL, 20);
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7900, 'JAMES', 'ORDENANZA', 7698, TO_DATE('03-12-1981', 'DD-MM-YYYY'), 950, NULL, 30);
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7902, 'FORD', 'ANALISTA', 7566, TO_DATE('03-12-1981', 'DD-MM-YYYY'), 3000, NULL, 20);
+
+INSERT INTO EMPLEADO (NUMEMP, NOMBREEMP, EMPLEO, JEFE, FECHAENTR, SUELDO, COMPLEMENTO, NUMDEP) 
+VALUES (7934, 'MILLER', 'ORDENANZA', 7782, TO_DATE('23-01-1982', 'DD-MM-YYYY'), 1300, NULL, 10);
+
+COMMIT;
+
+CREATE TABLE Proyecto (NumProy NUMBER(3) NOT NULL,
+NomProy CHAR(5),
+Presupuesto NUMBER(7,2));
+
+delete from Proyecto;
+
+insert into Proyecto VALUES (1,'ALFA',96000);
+insert into Proyecto VALUES (2,'BETA',82000);
+insert into Proyecto VALUES (3,'GAMMA',15000);
+
+-- 3
+
+
+alter table empleado add (numproyecto number);   
+
+-- 4
+
+update empleado SET numproyecto = 1 where numdep = 30 or empleo = 'VENDEDOR';
+
+-- 5
+
+update empleado SET numproyecto = 2 where numdep != 30 or empleo != 'VENDEDOR';
+
+select * from empleado;
+
+select * from proyecto;
+-- 6
+
+select nombreemp, NomProy from empleado e
+join Proyecto p on e.numproyecto = p.NumProy
+group by nombreemp, NomProy
+order by nombreemp asc;
+
+-- 7
+select nombreemp, numdep from empleado e
+where numdep = 30;
+
+--8 
+select nombreemp, sueldo from empleado e
+where sueldo > 2800;
+
+-- 9 
+
+select nombreemp, sueldo, empleo from empleado e
+where sueldo > 2800 or empleo = 'DIRECTIVO';
+
+-- 10
+
+select nombreemp, sueldo, empleo, numdep from empleado e
+where numdep != 30 and empleo = 'DIRECTIVO';
+
+
+--11
+select nombreemp, sueldo from empleado e
+where sueldo > 1200 and sueldo < 1400;
+
+--12
+
+select nombreemp, numdep from empleado e
+where numdep = 30 or numdep = 10;
+
+-- 13
+select nombreemp from empleado e
+where nombreemp like 'A%';
+
+-- 14
+
+select nombreemp, numdep from empleado e
+where numdep = 30 
+order by nombreemp asc;
+
+-- 15
+
+select nombreemp, empleo, sueldo from empleado e
+order by empleo asc, sueldo desc; 
+order by sueldo asc;
+
+-- 16
+
+select distinct empleo from empleado;
+
+-- 17
+
+
+select ciudad from departamento d
+join empleado e on e.numdep = d.numdep
+where nombreemp = 'Allen';
